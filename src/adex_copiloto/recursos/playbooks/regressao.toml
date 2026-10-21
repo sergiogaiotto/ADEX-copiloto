@@ -1,0 +1,33 @@
+nome = "regressao"
+titulo = "Regressão: o que se associa a uma medida"
+descricao = "Amostra com passaporte, regressão linear com erro robusto e boosting contra baseline."
+
+[[condicoes]]
+descricao = "a pergunta é explicar ou estimar uma quantidade"
+tipo = "tipo_pergunta"
+valores = ["regressao"]
+peso = 2.0
+
+[[condicoes]]
+descricao = "o pedido fala de fatores, associação ou explicar"
+tipo = "texto_contem"
+termos = ["fator", "associad", "explica", "influenc", "impacto de", "relacao"]
+
+[[condicoes]]
+descricao = "não trata ações em datas diferentes"
+tipo = "campo_nao_contem"
+campo = "objeto"
+termos = ["onda", "implant", "rollout"]
+
+[[passos]]
+id = "universo"
+bloco = "painel_agregado"
+parametros = { incluir_tratamento = false }
+
+[[passos]]
+id = "plano_amostral"
+bloco = "plano_amostral"
+
+[[passos]]
+id = "amostra"
+bloco = "amostra_unidades"

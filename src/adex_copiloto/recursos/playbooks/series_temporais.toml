@@ -1,0 +1,28 @@
+nome = "series_temporais"
+titulo = "Séries temporais: prever com backtest honesto"
+descricao = "Universo por período e backtest com origem móvel contra o ingênuo sazonal."
+
+[[condicoes]]
+descricao = "a pergunta é prever o futuro"
+tipo = "tipo_pergunta"
+valores = ["previsao"]
+peso = 2.0
+
+[[condicoes]]
+descricao = "há eixo de tempo"
+tipo = "mapeamento_tem"
+chave = "tempo"
+
+[[condicoes]]
+descricao = "o pedido fala de demanda, previsão ou próximos meses"
+tipo = "texto_contem"
+termos = ["demanda", "previs", "proximos meses", "projec", "forecast"]
+
+[[passos]]
+id = "universo"
+bloco = "painel_agregado"
+parametros = { incluir_tratamento = false }
+
+[[passos]]
+id = "backtest"
+bloco = "backtest_series"

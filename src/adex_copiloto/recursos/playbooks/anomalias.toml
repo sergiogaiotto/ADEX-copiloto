@@ -1,0 +1,23 @@
+nome = "anomalias"
+titulo = "Anomalias: o que foge do padrão"
+descricao = "Universo por grupo e período e anomalias pelo z robusto do resíduo."
+
+[[condicoes]]
+descricao = "a pergunta é achar o que foge do padrão"
+tipo = "tipo_pergunta"
+valores = ["anomalia"]
+peso = 2.0
+
+[[condicoes]]
+descricao = "o pedido fala de anomalia, fraude ou fora do padrão"
+tipo = "texto_contem"
+termos = ["anomal", "fora do padrao", "fraude", "atipic", "estranho", "pico"]
+
+[[passos]]
+id = "universo"
+bloco = "painel_agregado"
+parametros = { incluir_tratamento = false }
+
+[[passos]]
+id = "anomalias"
+bloco = "anomalias_serie"

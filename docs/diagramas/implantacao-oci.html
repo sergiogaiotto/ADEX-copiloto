@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onde o ADEX Copiloto roda na OCI</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #f5f5f5; --color-ink: #2d3142; --color-muted: #4f5d75; --color-accent: #eb6c36;
+      --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-serif: 'Instrument Serif', 'Noto Serif', Georgia, 'Times New Roman', serif;
+      --font-mono: 'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    }
+    body { font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+           min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+    .frame { max-width: 1200px; width: 100%; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em;
+               text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400;
+         letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Implantação · ADEX Copiloto</p>
+    <h1>Onde o ADEX Copiloto roda na OCI</h1>
+    <svg viewBox="0 0 960 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="impl-title impl-desc">
+  <title id="impl-title">Onde o ADEX Copiloto roda na OCI</title>
+  <desc id="impl-desc">Diagrama de implantação com três zonas. Na zona OCI Data Science fica a notebook session, com a biblioteca adex_copiloto, langgraph 1.2.16, deepagents 0.7.28, langchain-openai 1.7.2 e o SDK 4 do Langfuse. Na zona de serviços OCI ficam o Autonomous Data Warehouse (mTLS na porta 1522, usuário só leitura), o Object Storage (estado, snapshots e handoff) e o Vault (chaves e credenciais). Na zona de acesso por URL e chave ficam o GPU Hub do CCOE, com o Qwen3.8-27B, e o Langfuse 4.49, que já existe numa máquina no Brasil. Hoje não há rota entre o notebook e o Langfuse; a máquina do Langfuse já chama o hub para usar o Qwen como avaliador.</desc>
+  <defs>
+    <marker id="impl-arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+    <marker id="impl-arrow-muted" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+    <marker id="impl-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#eb6c36"/></marker>
+  </defs>
+  <rect width="960" height="700" fill="#f5f5f5"/>
+
+  <!-- Zonas (antes de tudo) -->
+  <g fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.20)" stroke-width="1" stroke-dasharray="4,4">
+    <rect x="40" y="96" width="300" height="504" rx="8"/>
+    <rect x="420" y="96" width="500" height="248" rx="8"/>
+    <rect x="420" y="368" width="500" height="232" rx="8"/>
+  </g>
+  <g font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" font-size="8" letter-spacing="0.14em" fill="rgba(45,49,66,0.55)">
+    <rect x="52" y="90" width="180" height="12" rx="2" fill="#f5f5f5" stroke="none"/>
+    <text x="56" y="99">OCI DATA SCIENCE · NOTEBOOK</text>
+    <rect x="432" y="90" width="220" height="12" rx="2" fill="#f5f5f5" stroke="none"/>
+    <text x="436" y="99">SERVIÇOS OCI · REGIÃO A CONFIRMAR</text>
+    <rect x="432" y="362" width="152" height="12" rx="2" fill="#f5f5f5" stroke="none"/>
+    <text x="436" y="371">ACESSO POR URL E CHAVE</text>
+  </g>
+
+  <!-- Caminhos de rede (antes dos nós) -->
+  <g fill="none" stroke="#2e5aa8" stroke-width="1.2">
+    <line x1="320" y1="156" x2="448" y2="156" marker-end="url(#impl-arrow-link)"/>
+    <line x1="320" y1="228" x2="448" y2="228" marker-end="url(#impl-arrow-link)"/>
+    <line x1="320" y1="300" x2="448" y2="300" marker-end="url(#impl-arrow-link)"/>
+    <line x1="320" y1="440" x2="448" y2="440" marker-end="url(#impl-arrow-link)"/>
+  </g>
+  <line x1="320" y1="536" x2="448" y2="536" stroke="#eb6c36" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#impl-arrow-accent)"/>
+  <path d="M 712,524 H 776 Q 784,524 784,516 V 448 Q 784,440 776,440 H 712" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#impl-arrow-muted)"/>
+
+  <!-- Rótulos dos caminhos -->
+  <g font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" font-size="8" letter-spacing="0.06em" text-anchor="middle">
+    <rect x="352" y="138" width="56" height="12" rx="2" fill="#f5f5f5"/>
+    <text x="380" y="147" fill="#2e5aa8">MTLS 1522</text>
+    <rect x="348" y="210" width="64" height="12" rx="2" fill="#f5f5f5"/>
+    <text x="380" y="219" fill="#2e5aa8">HTTPS · SG</text>
+    <rect x="348" y="282" width="64" height="12" rx="2" fill="#f5f5f5"/>
+    <text x="380" y="291" fill="#2e5aa8">HTTPS · RP</text>
+    <rect x="352" y="422" width="56" height="12" rx="2" fill="#f5f5f5"/>
+    <text x="380" y="431" fill="#2e5aa8">HTTPS /V1</text>
+    <rect x="342" y="518" width="76" height="12" rx="2" fill="#f5f5f5"/>
+    <text x="380" y="527" fill="#eb6c36">SEM ROTA HOJE</text>
+    <rect x="740" y="476" width="88" height="12" rx="2" fill="#f5f5f5"/>
+    <text x="784" y="485" fill="#4f5d75">AVALIADOR QWEN</text>
+  </g>
+
+  <!-- Nó: notebook session -->
+  <g font-family="'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif">
+    <rect x="60" y="128" width="260" height="448" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <rect x="68" y="136" width="24" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.40)" stroke-width="0.8"/>
+    <text x="80" y="145" fill="#2d3142" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">VM</text>
+    <text x="100" y="146" fill="#2d3142" font-size="12" font-weight="600">Notebook session</text>
+    <text x="76" y="170" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">JupyterLab 4.4.6 · conda py3.12 (alvo)</text>
+
+    <g font-size="12">
+      <rect x="76" y="188" width="228" height="24" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="0.8"/>
+      <text x="84" y="204" fill="#2d3142">adex_copiloto</text>
+      <text x="296" y="204" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">em plano</text>
+      <rect x="76" y="220" width="228" height="24" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="0.8"/>
+      <text x="84" y="236" fill="#2d3142">langgraph</text>
+      <text x="296" y="236" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">1.2.16</text>
+      <rect x="76" y="252" width="228" height="24" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="0.8"/>
+      <text x="84" y="268" fill="#2d3142">deepagents</text>
+      <text x="296" y="268" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">0.7.28</text>
+      <rect x="76" y="284" width="228" height="24" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="0.8"/>
+      <text x="84" y="300" fill="#2d3142">langchain-openai</text>
+      <text x="296" y="300" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">1.7.2</text>
+      <rect x="76" y="316" width="228" height="24" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="0.8"/>
+      <text x="84" y="332" fill="#2d3142">langfuse (SDK)</text>
+      <text x="296" y="332" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">4.x</text>
+    </g>
+    <text x="76" y="372" fill="#7a8399" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">checkpoint SQLite cifrado</text>
+    <text x="76" y="386" fill="#7a8399" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">em /home/datascience</text>
+    <text x="76" y="408" fill="#7a8399" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">células de até ~30 min;</text>
+    <text x="76" y="422" fill="#7a8399" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">acima disso, Data Science Job</text>
+  </g>
+
+  <!-- Nós: serviços OCI -->
+  <g font-family="'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif">
+    <rect x="448" y="128" width="264" height="56" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+    <rect x="456" y="136" width="48" height="12" rx="2" fill="transparent" stroke="rgba(79,93,117,0.50)" stroke-width="0.8"/>
+    <text x="480" y="145" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">MANAGED</text>
+    <text x="512" y="146" fill="#2d3142" font-size="12" font-weight="600">Autonomous Data Warehouse</text>
+    <text x="456" y="172" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">serviço LOW · usuário só leitura</text>
+
+    <rect x="448" y="200" width="264" height="56" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+    <rect x="456" y="208" width="48" height="12" rx="2" fill="transparent" stroke="rgba(79,93,117,0.50)" stroke-width="0.8"/>
+    <text x="480" y="217" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">MANAGED</text>
+    <text x="512" y="218" fill="#2d3142" font-size="12" font-weight="600">Object Storage</text>
+    <text x="456" y="244" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">estado · snapshots · handoff</text>
+
+    <rect x="448" y="272" width="264" height="56" rx="6" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="1"/>
+    <rect x="456" y="280" width="48" height="12" rx="2" fill="transparent" stroke="rgba(79,93,117,0.50)" stroke-width="0.8"/>
+    <text x="480" y="289" fill="#4f5d75" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">MANAGED</text>
+    <text x="512" y="290" fill="#2d3142" font-size="12" font-weight="600">Vault</text>
+    <text x="456" y="316" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">chave do hub · credenciais do banco</text>
+  </g>
+
+  <!-- Nós: plataforma CCOE -->
+  <g font-family="'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif">
+    <rect x="448" y="400" width="264" height="80" rx="6" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.30)" stroke-width="1"/>
+    <rect x="456" y="408" width="48" height="12" rx="2" fill="transparent" stroke="rgba(45,49,66,0.22)" stroke-width="0.8"/>
+    <text x="480" y="417" fill="#7a8399" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">MANAGED</text>
+    <text x="512" y="418" fill="#2d3142" font-size="12" font-weight="600">GPU Hub</text>
+    <text x="456" y="440" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">CCOE · LiteLLM na frente do vLLM</text>
+    <rect x="456" y="448" width="248" height="24" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="0.8"/>
+    <text x="464" y="464" fill="#2d3142" font-size="12">Qwen3.8-27B</text>
+    <text x="696" y="464" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">qwen-latest</text>
+
+    <rect x="448" y="496" width="264" height="80" rx="6" fill="rgba(235,108,54,0.08)" stroke="#eb6c36" stroke-width="1"/>
+    <rect x="456" y="504" width="32" height="12" rx="2" fill="transparent" stroke="rgba(235,108,54,0.50)" stroke-width="0.8"/>
+    <text x="472" y="513" fill="#eb6c36" font-size="7" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle" letter-spacing="0.08em">HOST</text>
+    <text x="496" y="514" fill="#2d3142" font-size="12" font-weight="600">Langfuse existente</text>
+    <text x="456" y="536" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace">outra máquina no Brasil · sha256 + salt</text>
+    <rect x="456" y="544" width="248" height="24" rx="4" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="0.8"/>
+    <text x="464" y="560" fill="#2d3142" font-size="12">langfuse</text>
+    <text x="696" y="560" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="end">4.49</text>
+  </g>
+
+  <!-- Legenda -->
+  <line x1="40" y1="620" x2="920" y2="620" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
+  <text x="40" y="636" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" letter-spacing="0.18em">LEGENDA</text>
+  <g font-family="'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="8.5" fill="#4f5d75">
+    <rect x="40" y="652" width="14" height="10" rx="2" fill="rgba(45,49,66,0.02)" stroke="rgba(45,49,66,0.20)" stroke-dasharray="3,2"/>
+    <text x="60" y="660">Zona de rede ou ambiente</text>
+    <rect x="200" y="652" width="14" height="10" rx="2" fill="rgba(235,108,54,0.08)" stroke="#eb6c36" stroke-width="1"/>
+    <text x="220" y="660">Integração nova</text>
+    <rect x="368" y="652" width="14" height="10" rx="2" fill="rgba(45,49,66,0.05)" stroke="#4f5d75" stroke-width="0.8"/>
+    <text x="388" y="660">Artefato e versão</text>
+    <line x1="496" y1="657" x2="524" y2="657" stroke="#2e5aa8" stroke-width="1.2" marker-end="url(#impl-arrow-link)"/>
+    <text x="532" y="660">Chamada entre zonas</text>
+    <line x1="644" y1="657" x2="672" y2="657" stroke="#eb6c36" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#impl-arrow-accent)"/>
+    <text x="680" y="660">Sem rota hoje</text>
+    <text x="40" y="686">SG = service gateway · RP = resource principal · região e modo de acesso ao ADW são parâmetros a confirmar · a rota até o Langfuse precisa ser aberta</text>
+  </g>
+</svg>
+
+  </div>
+</body>
+</html>

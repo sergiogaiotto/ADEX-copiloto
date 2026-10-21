@@ -1,0 +1,26 @@
+nome = "perfilamento_qualidade"
+titulo = "Perfilamento e qualidade de uma fonte"
+descricao = "Conhecer uma fonte: perfil das colunas, repetições, buracos no tempo e ligações."
+
+[[condicoes]]
+descricao = "a pergunta é descrever ou diagnosticar dados"
+tipo = "tipo_pergunta"
+valores = ["descricao", "diagnostico"]
+peso = 2.0
+
+[[condicoes]]
+descricao = "o pedido fala de qualidade, perfil ou conhecer a base"
+tipo = "texto_contem"
+termos = ["qualidade", "perfil", "conhecer a base", "nulos", "duplic", "consisten"]
+
+[[passos]]
+id = "perfil"
+bloco = "perfilamento"
+
+[[passos]]
+id = "qualidade"
+bloco = "qualidade"
+
+[[passos]]
+id = "ligacoes"
+bloco = "ligacoes"

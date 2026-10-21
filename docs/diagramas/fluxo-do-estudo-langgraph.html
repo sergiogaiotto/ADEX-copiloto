@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fluxo do estudo no Harness</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #f5f5f5; --color-ink: #2d3142; --color-muted: #4f5d75; --color-accent: #eb6c36;
+      --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-serif: 'Instrument Serif', 'Noto Serif', Georgia, 'Times New Roman', serif;
+      --font-mono: 'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+    }
+    body { font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink);
+           min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+    .frame { max-width: 1200px; width: 100%; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em;
+               text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400;
+         letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Swimlane · ADEX Copiloto</p>
+    <h1>Fluxo do estudo no Harness</h1>
+    <svg viewBox="0 0 960 1160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fluxo-title fluxo-desc">
+  <title id="fluxo-title">Fluxo do estudo no Harness do ADEX Copiloto</title>
+  <desc id="fluxo-desc">Swimlane com três raias: dev, Harness em LangGraph e Deep Agents. O estudo passa por 13 passos de cima para baixo. Seis são nós determinísticos do Harness (enquadrar, escrever a carta, universo agregado, executar as etapas, revisão crítica e gerar o handoff) e cinco são portões humanos (aprovar a carta, assinar o passaporte, aprovar o plano, aceitar os resultados e liberar o handoff). Os Deep Agents aparecem só em dois passos: descobrir os dados e montar o plano.</desc>
+  <defs>
+    <marker id="fluxo-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+  </defs>
+  <rect width="960" height="1160" fill="#f5f5f5"/>
+
+  <!-- Raias -->
+  <line x1="40" y1="72" x2="920" y2="72" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+  <line x1="40" y1="1072" x2="920" y2="1072" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+  <line x1="300" y1="40" x2="300" y2="1072" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+  <line x1="640" y1="40" x2="640" y2="1072" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+  <text x="170" y="60" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle" letter-spacing="0.18em">DEV · PORTÕES</text>
+  <text x="470" y="60" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle" letter-spacing="0.18em">HARNESS · LANGGRAPH</text>
+  <text x="780" y="60" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle" letter-spacing="0.18em">DEEP AGENTS</text>
+
+  <!-- Conectores (antes dos nós) -->
+  <g fill="none" stroke="#4f5d75" stroke-width="1.2">
+    <line x1="470" y1="144" x2="470" y2="172" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 470,220 V 226 Q 470,234 462,234 H 178 Q 170,234 170,242 V 248" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 170,296 V 302 Q 170,310 178,310 H 772 Q 780,310 780,318 V 324" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 780,372 V 378 Q 780,386 772,386 H 478 Q 470,386 470,394 V 400" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 470,448 V 454 Q 470,462 462,462 H 178 Q 170,462 170,470 V 476" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 170,524 V 530 Q 170,538 178,538 H 772 Q 780,538 780,546 V 552" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 780,600 V 606 Q 780,614 772,614 H 178 Q 170,614 170,622 V 628" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 170,676 V 682 Q 170,690 178,690 H 462 Q 470,690 470,698 V 704" marker-end="url(#fluxo-arrow)"/>
+    <line x1="470" y1="752" x2="470" y2="780" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 470,828 V 834 Q 470,842 462,842 H 178 Q 170,842 170,850 V 856" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 170,904 V 910 Q 170,918 178,918 H 462 Q 470,918 470,926 V 932" marker-end="url(#fluxo-arrow)"/>
+    <path d="M 470,980 V 986 Q 470,994 462,994 H 178 Q 170,994 170,1002 V 1008" marker-end="url(#fluxo-arrow)"/>
+  </g>
+
+  <!-- Nós do Harness (determinísticos) -->
+  <g font-family="'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif">
+    <rect x="340" y="96" width="260" height="48" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="470" y="117" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Enquadrar o pedido</text>
+    <text x="470" y="132" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">chamada estruturada · sem dados</text>
+
+    <rect x="340" y="172" width="260" height="48" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="470" y="193" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Escrever a carta</text>
+    <text x="470" y="208" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">JSON estrito · origem por campo</text>
+
+    <rect x="340" y="400" width="260" height="48" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="470" y="421" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Universo agregado</text>
+    <text x="470" y="436" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">bloco SQL · porteiro · ADW</text>
+
+    <rect x="340" y="704" width="260" height="48" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="470" y="725" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Executar as etapas</text>
+    <text x="470" y="740" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">blocos registrados · Python/SQL</text>
+
+    <rect x="340" y="780" width="260" height="48" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="470" y="801" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Revisão crítica</text>
+    <text x="470" y="816" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">chamada separada · não vê o planejador</text>
+
+    <rect x="340" y="932" width="260" height="48" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="470" y="953" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Gerar o handoff</text>
+    <text x="470" y="968" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">bucket + Model Catalog</text>
+  </g>
+
+  <!-- Portões humanos (interrupt) -->
+  <g font-family="'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif">
+    <rect x="70" y="248" width="200" height="48" rx="6" fill="rgba(79,93,117,0.10)" stroke="#7a8399" stroke-width="1"/>
+    <text x="170" y="269" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Aprovar a carta</text>
+    <text x="170" y="284" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">interrupt()</text>
+
+    <rect x="70" y="476" width="200" height="48" rx="6" fill="rgba(79,93,117,0.10)" stroke="#7a8399" stroke-width="1"/>
+    <text x="170" y="497" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Assinar o passaporte</text>
+    <text x="170" y="512" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">interrupt()</text>
+
+    <rect x="70" y="628" width="200" height="48" rx="6" fill="rgba(79,93,117,0.10)" stroke="#7a8399" stroke-width="1"/>
+    <text x="170" y="649" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Aprovar o plano</text>
+    <text x="170" y="664" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">interrupt()</text>
+
+    <rect x="70" y="856" width="200" height="48" rx="6" fill="rgba(79,93,117,0.10)" stroke="#7a8399" stroke-width="1"/>
+    <text x="170" y="877" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Aceitar os resultados</text>
+    <text x="170" y="892" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">interrupt()</text>
+
+    <rect x="70" y="1008" width="200" height="48" rx="6" fill="rgba(79,93,117,0.10)" stroke="#7a8399" stroke-width="1"/>
+    <text x="170" y="1029" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Liberar o handoff</text>
+    <text x="170" y="1044" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">interrupt()</text>
+  </g>
+
+  <!-- Deep Agents (focais) -->
+  <g font-family="'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif">
+    <rect x="670" y="324" width="220" height="48" rx="6" fill="rgba(235,108,54,0.08)" stroke="#eb6c36" stroke-width="1"/>
+    <text x="780" y="345" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Descobrir os dados</text>
+    <text x="780" y="360" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">só metadados · subagentes</text>
+
+    <rect x="670" y="552" width="220" height="48" rx="6" fill="rgba(235,108,54,0.08)" stroke="#eb6c36" stroke-width="1"/>
+    <text x="780" y="573" fill="#2d3142" font-size="12" font-weight="600" text-anchor="middle">Montar o plano</text>
+    <text x="780" y="588" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" text-anchor="middle">especialistas como subagentes</text>
+  </g>
+
+  <!-- Legenda -->
+  <line x1="40" y1="1092" x2="920" y2="1092" stroke="rgba(45,49,66,0.10)" stroke-width="0.8"/>
+  <text x="40" y="1108" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace" letter-spacing="0.18em">LEGENDA</text>
+  <g font-family="'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="8.5" fill="#4f5d75">
+    <rect x="40" y="1124" width="14" height="10" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="60" y="1132">Nó determinístico do grafo</text>
+    <rect x="216" y="1124" width="14" height="10" rx="2" fill="rgba(235,108,54,0.08)" stroke="#eb6c36" stroke-width="1"/>
+    <text x="236" y="1132">Deep Agent, com ferramentas restritas</text>
+    <rect x="436" y="1124" width="14" height="10" rx="2" fill="rgba(79,93,117,0.10)" stroke="#7a8399" stroke-width="1"/>
+    <text x="456" y="1132">Portão humano, com checkpoint</text>
+    <line x1="636" y1="1129" x2="664" y2="1129" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#fluxo-arrow)"/>
+    <text x="672" y="1132">Próximo passo</text>
+  </g>
+</svg>
+
+  </div>
+</body>
+</html>

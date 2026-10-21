@@ -1,0 +1,25 @@
+# Ambientes
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# Estado local de estudos e segredos: nunca versionar
+.adex/
+*.dpapi
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+*.pem
+*.key
+.env
+fase0-resultados/
+secrets/
+config/local.toml
+
+# Notebooks de rascunho
+.ipynb_checkpoints/

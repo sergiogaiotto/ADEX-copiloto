@@ -1,0 +1,3 @@
+# Local fixo do arquivo de Configurações do Admin, gravado na build oficial do conda.
+# Exemplo: oci://adex-admin@namespace/adex/admin/configuracoes.toml
+# Vazio = vale admin.arquivo da configuração (só para uso local/desenvolvimento).

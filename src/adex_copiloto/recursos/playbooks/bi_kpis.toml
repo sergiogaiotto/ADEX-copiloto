@@ -1,0 +1,27 @@
+nome = "bi_kpis"
+titulo = "BI: medidas e KPIs com granularidade consistente"
+descricao = "Universo agregado, medidas por dimensão com reconciliação e decomposição de variação."
+
+[[condicoes]]
+descricao = "a pergunta é acompanhar ou descrever"
+tipo = "tipo_pergunta"
+valores = ["descricao"]
+peso = 2.0
+
+[[condicoes]]
+descricao = "o pedido fala de indicador, painel ou KPI"
+tipo = "texto_contem"
+termos = ["kpi", "indicador", "painel", "dashboard", "acompanh", "relatorio", "medida"]
+
+[[condicoes]]
+descricao = "há eixo de tempo"
+tipo = "mapeamento_tem"
+chave = "tempo"
+
+[[passos]]
+id = "universo"
+bloco = "painel_agregado"
+
+[[passos]]
+id = "anomalias"
+bloco = "anomalias_serie"

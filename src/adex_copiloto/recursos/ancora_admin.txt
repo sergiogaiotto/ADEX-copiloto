@@ -1,0 +1,4 @@
+# Âncora de confiança das Configurações do Admin.
+# Na build oficial do conda, o Admin grava aqui o sha256 da chave pública Ed25519
+# (saída de `adex-configuracoes gerar-chaves`). Linha vazia = sem âncora no pacote;
+# nesse caso vale ADEX_ADMIN_ANCORA (só para uso local).

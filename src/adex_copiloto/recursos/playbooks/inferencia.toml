@@ -1,0 +1,24 @@
+nome = "inferencia"
+titulo = "Inferência: os grupos diferem?"
+descricao = "Compara grupos num momento com intervalo e correção para vários testes."
+
+[[condicoes]]
+descricao = "a pergunta compara grupos (descrever ou diagnosticar)"
+tipo = "tipo_pergunta"
+valores = ["descricao", "diagnostico"]
+peso = 2.0
+
+[[condicoes]]
+descricao = "o pedido compara grupos num mesmo momento"
+tipo = "texto_contem"
+termos = ["compar", "diferen", "maior que", "menor que", "entre os grupos", "segmento"]
+
+[[condicoes]]
+descricao = "não trata ações em datas diferentes"
+tipo = "campo_nao_contem"
+campo = "objeto"
+termos = ["onda", "implant", "rollout", "troca", "campanha"]
+
+[[passos]]
+id = "universo"
+bloco = "painel_agregado"

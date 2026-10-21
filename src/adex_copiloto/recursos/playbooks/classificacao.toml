@@ -1,0 +1,41 @@
+nome = "classificacao"
+titulo = "Classificação: quem tem ou terá a característica"
+descricao = "Amostra com passaporte, separação temporal, baseline, logística e boosting, vazamento e lift."
+
+[[condicoes]]
+descricao = "a pergunta é classificar ou prever um evento por unidade"
+tipo = "tipo_pergunta"
+valores = ["classificacao", "previsao"]
+peso = 2.0
+
+[[condicoes]]
+descricao = "há um alvo por unidade"
+tipo = "mapeamento_tem"
+chave = "alvo"
+
+[[condicoes]]
+descricao = "o pedido fala de risco, propensão ou quem vai"
+tipo = "texto_contem"
+termos = ["risco", "propens", "quem vai", "chance", "probabilidade", "cancel", "churn", "fraude"]
+
+[[passos]]
+id = "universo"
+bloco = "painel_agregado"
+parametros = { incluir_tratamento = false }
+
+[[passos]]
+id = "plano_amostral"
+bloco = "plano_amostral"
+
+[[passos]]
+id = "amostra"
+bloco = "amostra_unidades"
+
+[[passos]]
+id = "representatividade"
+bloco = "representatividade"
+
+[[passos]]
+id = "separacao"
+bloco = "separacao"
+parametros = { tipo = "temporal" }

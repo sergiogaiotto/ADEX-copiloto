@@ -1,0 +1,16 @@
+nome = "telecom"
+titulo = "Telecom (operadora)"
+kpis = ["chamados técnicos por 1.000 clientes", "visitas técnicas evitadas", "churn mensal", "ARPU", "NPS", "SLA de reparo"]
+tabelas_comuns = ["base mensal de clientes/domicílios", "chamados técnicos com motivo", "trocas de equipamento", "faturas", "cancelamentos"]
+riscos_tipicos = [
+  "ordem de implantação escolhida por reclamação (regressão à média)",
+  "mudança de códigos de motivo ao longo do tempo",
+  "chamados de configuração logo depois de uma troca",
+  "troca de empresa de campo no meio do período",
+]
+
+[glossario]
+churn = "cancelamento do serviço pelo cliente"
+NBO = "próxima melhor oferta (next best offer)"
+ARPU = "receita média por usuário"
+"Wi-Fi 6" = "padrão de rede sem fio 802.11ax"

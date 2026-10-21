@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adex-copiloto"
+version = "0.1.0"
+description = "ADEX Copiloto: copiloto de inteligência de dados para o Jupyter do OCI Data Science, com o Qwen do GPU Hub."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietário" }
+authors = [{ name = "Time ADEX" }]
+dependencies = [
+    "pydantic>=2.7,<3",
+    "tomli-w>=1.0",
+    "cryptography>=42",
+    "pycryptodome>=3.20",
+    "httpx>=0.27",
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "scipy>=1.11",
+    "statsmodels>=0.14",
+    "scikit-learn>=1.4",
+    "matplotlib>=3.8",
+    "sqlglot>=30,<31",
+    "duckdb>=1.1",          # fonte local (desenvolvimento e testes); traduz o SQL Oracle do porteiro
+    "pyarrow>=15",          # Parquet do armazém do estudo e do handoff
+    "opentelemetry-exporter-otlp-proto-http>=1.30",  # exportador do Langfuse com fila local
+    # Stack de orquestração (versões fixadas: o Deep Agents ainda está na série 0.x)
+    "langchain-core>=1.6,<1.7",
+    "langchain-openai==1.7.2",
+    "langgraph==1.2.16",
+    "langgraph-checkpoint-sqlite==3.1.2",
+    "deepagents==0.7.28",
+    # Langfuse: SDK 4 para servidores anteriores à 4.59 (o servidor atual é 4.49)
+    "langfuse>=4.18,<5",
+]
+
+[project.optional-dependencies]
+notebook = ["ipywidgets>=8.1", "ipython>=8.20"]
+oci = ["oracledb>=3.4", "oci>=2.130", "ocifs>=1.3"]
+ads = ["oracle-ads>=2.12"]
+ml = ["lightgbm>=4.3"]
+dev = ["pytest>=8", "ipython>=8.20", "ipywidgets>=8.1"]
+
+[project.scripts]
+adex-segredo = "adex_copiloto.seguranca.cli:main"
+adex-configuracoes = "adex_copiloto.config.cli:main"
+adex-fase0 = "adex_copiloto.fase0.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+adex_copiloto = [
+    "py.typed",
+    "recursos/*.txt",
+    "recursos/prompts/*.md",
+    "recursos/playbooks/*.toml",
+    "recursos/lentes/*.toml",
+    "recursos/fase0/*.json",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    "hub: testes que chamam o GPU Hub de verdade (exigem a chave configurada)",
+]
