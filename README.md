@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ADEX Copiloto
 
 Copiloto de inteligência de dados para o **Jupyter do OCI Data Science** (módulo datascience do ADEX), movido pelo
@@ -123,3 +124,7 @@ python -m pytest -m hub     # (reservado) provas contra o hub real
   diferença). O grupo mínimo por consulta não impede; o registro de toda consulta e o grupo mínimo alto mitigam.
 - Quem controla o kernel pode ler a chave dos checkpoints e refazer o dossiê com HMAC. A âncora externa (último hash no
   Langfuse, em outra máquina) é o que permite perceber isso numa auditoria.
+=======
+# ADEX-copiloto
+ADEX-copiloto
+>>>>>>> f29b657b0a63edcd18b9c241715f5d5d4011273a
